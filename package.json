@@ -19,5 +19,5 @@
     "eject": "react-scripts eject",
     "deploy" : "npm run build && gh-pages -d build"
   },
-  "homepage": "https://melvin0008.github.io/survey-token"
+  "homepage": "https://melvin0008.github.io/survey-frontend"
 }
