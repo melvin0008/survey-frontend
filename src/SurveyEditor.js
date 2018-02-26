@@ -18,6 +18,7 @@ import "select2/dist/js/select2.js";
 import "jquery-bar-rating";
 
 import * as widgets from "surveyjs-widgets";
+import request from 'superagent';
 
 widgets.icheck(SurveyKo, $);
 widgets.select2(SurveyKo, $);
@@ -47,15 +48,12 @@ class SurveyEditor extends Component {
     return <div id="surveyEditorContainer" />;
   }
   saveMySurvey = () => {
-    var myHeaders = new Headers();
-    myHeaders.append('Content-Type', 'application/json');
 
-    fetch('https://survey-token.herokuapp.com/api/survey/', {
-      method: 'POST',
-      headers: myHeaders,
-      body: JSON.stringify(this.editor.text)
-    })
-    console.log(JSON.stringify(this.editor.text));
+    request
+      .post('http://localhost:8080/api/survey/')
+      .set('Accept', 'application/json')
+      .send(JSON.stringify(this.editor.text))
+      .then(res => this.props.history.push('/payment') )
   };
 }
 

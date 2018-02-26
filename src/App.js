@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+
+import Payment from './Payment'
 import * as Survey from "survey-react";
 import "survey-react/survey.css";
 import SurveyEditor from "./SurveyEditor";
@@ -39,9 +42,14 @@ class App extends Component {
   render() {
     Survey.Survey.cssType = "bootstrap";
     return (
-      <div className="App">
-        <SurveyEditor />
-      </div>
+      <BrowserRouter>
+        <div className="App">
+          <Switch>
+            <Route exact path='/' component={SurveyEditor}/>
+            <Route path='/payment' component={Payment}/>
+          </Switch>
+        </div>
+      </BrowserRouter>
     );
   }
 }
