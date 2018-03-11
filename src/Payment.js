@@ -3,7 +3,7 @@ import React from "react";
 function Payment(props) {
   return (
     <button className="square">
-      Hi
+      Hi {props.location.state.survey_id}
     </button>
   );
 }

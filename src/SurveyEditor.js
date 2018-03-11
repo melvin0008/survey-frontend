@@ -47,13 +47,21 @@ class SurveyEditor extends Component {
   render() {
     return <div id="surveyEditorContainer" />;
   }
-  saveMySurvey = () => {
 
+  saveMySurvey = () => {
     request
-      .post('http://localhost:8080/api/survey/')
+      .post('http://127.0.0.1:8080/api/survey')
       .set('Accept', 'application/json')
-      .send(JSON.stringify(this.editor.text))
-      .then(res => this.props.history.push('/payment') )
+      .send(this.editor.text)
+      .then(res => {
+        let surveyId = res.body.survey_id
+
+        this.props.history.push({
+          pathname: '/payment',
+          search: '?survey_id='+ surveyId,
+          state: { survey_id: surveyId }
+        })
+      })
   };
 }
 
