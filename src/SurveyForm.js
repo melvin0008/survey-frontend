@@ -1,11 +1,7 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
-
-import Payment from './Payment'
 import * as Survey from "survey-react";
 import "survey-react/survey.css";
 import SurveyEditor from "./SurveyEditor";
-import SurveyForm from "./SurveyForm";
 import logo from "./logo.svg";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
@@ -24,6 +20,7 @@ import "select2/dist/js/select2.js";
 import "jquery-bar-rating";
 
 import * as widgets from "surveyjs-widgets";
+import request from 'superagent';
 
 widgets.icheck(Survey, $);
 widgets.select2(Survey, $);
@@ -39,21 +36,49 @@ widgets.ckeditor(Survey);
 widgets.autocomplete(Survey, $);
 widgets.bootstrapslider(Survey);
 
-class App extends Component {
+class SurveyForm extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = { json: {} };
+    this.surveyid = this.props.match.params.surveyid;
+  }
+
+  componentDidMount(){
+    request
+      .get('http://127.0.0.1:8080/api/survey/' + this.surveyid)
+      .then(res => this.setState({ json: res.body[0].json }))
+  }
+
+  onValueChanged(result) {
+    console.log("value changed!");
+  }
+
+  onComplete(result) {
+    console.log("Complete! " + result);
+  }
+
   render() {
     Survey.Survey.cssType = "bootstrap";
-    return (
-      <BrowserRouter>
-        <div className="App">
-          <Switch>
-            <Route exact path='/' component={SurveyEditor}/>
-            <Route path='/payment' component={Payment}/>
-            <Route path='/survey/:surveyid' component={SurveyForm}/>
-          </Switch>
+    let json = this.state.json;
+    console.log(json)
+    let json_empty = Object.keys(json).length === 0 && json.constructor === Object
+    if (!json_empty) {
+      var model = new Survey.Model(json);
+      return (
+        <div className="SurveyForm">
+          <div className="surveyjs">
+            <Survey.Survey model={model} onComplete={this.onComplete} onValueChanged={this.onValueChanged}/>
+          </div>
         </div>
-      </BrowserRouter>
-    );
+      );
+    }
+    return (
+      <div className="SurveyForm">
+        Loading ...
+      </div>
+    )
   }
 }
 
-export default App;
+export default SurveyForm;
