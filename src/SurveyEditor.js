@@ -54,7 +54,7 @@ class SurveyEditor extends Component {
       .set('Accept', 'application/json')
       .send(this.editor.text)
       .then(res => {
-        let surveyId = res.body.survey_id
+        let surveyId = res.body.data
 
         this.props.history.push({
           pathname: '/payment',

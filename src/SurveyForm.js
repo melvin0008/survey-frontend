@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import * as Survey from "survey-react";
 import "survey-react/survey.css";
-import SurveyEditor from "./SurveyEditor";
-import logo from "./logo.svg";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 
@@ -55,7 +53,18 @@ class SurveyForm extends Component {
   }
 
   onComplete(result) {
-    console.log("Complete! " + result);
+    request
+    .post('http://127.0.0.1:8080/api/result')
+    .set('Accept', 'application/json')
+    .send(JSON.stringify({ "survey_id": this.surveyid, "json": result.data }))
+    .then(res => {
+      let surveyId = this.surveyid
+
+      this.props.history.push({
+        pathname: '/reward',
+        state: { survey_id: surveyId, completed: true }
+      })
+    })
   }
 
   render() {
@@ -68,7 +77,7 @@ class SurveyForm extends Component {
       return (
         <div className="SurveyForm">
           <div className="surveyjs">
-            <Survey.Survey model={model} onComplete={this.onComplete} onValueChanged={this.onValueChanged}/>
+            <Survey.Survey model={model} onComplete={this.onComplete.bind(this)} onValueChanged={this.onValueChanged}/>
           </div>
         </div>
       );
