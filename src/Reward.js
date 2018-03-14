@@ -1,10 +1,17 @@
 import React, {Component} from "react";
 import request from 'superagent';
+import {
+  Button,
+  ButtonGroup,
+  FormControl,
+  FormGroup,
+  ControlLabel,
+} from 'react-bootstrap';
 
 class Reward extends Component {
   constructor(props) {
     super(props);
-    this.state = {value: ''};
+    this.state = {value: '', rewarded: false};
     this.surveyid = props.location.state.survey_id;
     this.completed = props.location.state.completed;
     this.handleChange = this.handleChange.bind(this);
@@ -15,8 +22,11 @@ class Reward extends Component {
     this.setState({value: event.target.value});
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
+  handleInputFocus = (event) => {
+    event.target.select()
+  }
+
+  handleSubmit() {
     let reward_address = this.state.value;
     if (reward_address.length !== 34){
       alert("Enter an appropriate address")
@@ -27,20 +37,43 @@ class Reward extends Component {
     .set('Accept', 'application/json')
     .send(JSON.stringify({ "survey_id": this.surveyid, "reward_address": this.state.value}))
     .then(res => {
-      console.log(res);
+      this.setState({ rewarded: true})
     })
   }
 
   render() {
     if (this.completed) {
       return (
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            NEO Address:
-            <input type="text" value={this.state.value} onChange={this.handleChange} />
-          </label>
-          <input type="submit" value="Get Rewarded" />
-        </form>
+        <div style={divStyle}>
+          <div  className="col-md-4 col-md-offset-4" style= {{marginTop: '40px'}}>
+            <form>
+              <FormGroup
+                controlId='sendForm'
+                style={ { 'minHeight': '100px' } }
+              >
+                <ControlLabel> Enter your NEO Address: </ControlLabel>
+                <FormControl
+                  type='text'
+                  value={ this.state.value }
+                  placeholder=''
+                  autoFocus
+                  onChange={ this.handleChange }
+                  bsSize='large'
+                  className='text-center'
+                  style={inputStyle}
+                  onFocus={ this.handleInputFocus }
+                />
+              </FormGroup>
+              <div className='button-container'>
+                <Button
+                  bsSize='large'
+                  block
+                  onClick={ () => this.handleSubmit() }
+                >Get Rewarded</Button>
+              </div>
+            </form>
+          </div>
+        </div>
       );
     }
     return (
@@ -51,6 +84,22 @@ class Reward extends Component {
       </div>
     )
   }
+}
+
+const divStyle = {
+  height: '100%',
+  width: '100%',
+  height: '100vh',
+  width: '100vw',
+  backgroundColor: '#f0f0f0',
+};
+
+const inputStyle = {
+  background: 'transparent',
+  border: 'none',
+  borderBottom: '1px solid #000000',
+  borderRadius: '0px',
+  boxShadow: 'none',
 }
 
 export default Reward;
