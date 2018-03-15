@@ -2,11 +2,11 @@ import React, {Component} from "react";
 import request from 'superagent';
 import {
   Button,
-  ButtonGroup,
   FormControl,
   FormGroup,
   ControlLabel,
 } from 'react-bootstrap';
+import Background from './bg1.jpeg';
 
 class Reward extends Component {
   constructor(props) {
@@ -42,7 +42,14 @@ class Reward extends Component {
   }
 
   render() {
-    if (this.completed) {
+    if(this.state.rewarded) {
+      return (
+        <div>
+          
+        </div>
+      )
+    }
+    else if (this.completed) {
       return (
         <div style={divStyle}>
           <div  className="col-md-4 col-md-offset-4" style= {{marginTop: '40px'}}>
@@ -77,7 +84,7 @@ class Reward extends Component {
       );
     }
     return (
-      <div>
+      <div style={divStyle}>
         <p>
           Please complete the Survey first
         </p>
@@ -91,7 +98,11 @@ const divStyle = {
   width: '100%',
   height: '100vh',
   width: '100vw',
-  backgroundColor: '#f0f0f0',
+  backgroundImage: `url(${Background})`,
+  backgroundRepeat: 'no-repeat',
+  backgroundPosition: 'center',
+  backgroundAttachment: 'fixed',
+  backgroundSize: '100%',
 };
 
 const inputStyle = {

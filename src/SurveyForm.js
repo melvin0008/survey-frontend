@@ -38,14 +38,21 @@ class SurveyForm extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { json: {} };
+    this.state = { json: {}, error: false };
     this.surveyid = this.props.match.params.surveyid;
   }
 
   componentDidMount(){
     request
       .get('http://127.0.0.1:8080/api/survey/' + this.surveyid)
-      .then(res => this.setState({ json: res.body[0].json }))
+      .then(res => {
+        if (res.body[0]) {
+          this.setState({ json: res.body[0].json })
+        }
+        else{
+          this.setState({ error: true})
+        }
+      })
   }
 
   onValueChanged(result) {
@@ -81,6 +88,13 @@ class SurveyForm extends Component {
           </div>
         </div>
       );
+    }
+    if (this.state.error) {
+      return (
+        <div className="SurveyForm">
+          Type in the correct Survey Id.
+        </div>
+      )
     }
     return (
       <div className="SurveyForm">

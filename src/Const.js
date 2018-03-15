@@ -1,0 +1,1 @@
+export const SHARE_URL = 'http://localhost:3000/survey/';

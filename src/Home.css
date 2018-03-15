@@ -1,0 +1,37 @@
+.surButton {
+  background-color: #f0f0;
+  color: #fff;
+  width: 200px;
+  display: inline-block;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.3333333;
+  border-radius: 6px;
+  border-color: #ccc;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  background-image: none;
+  border: 1px solid #ccc;
+  vertical-align: middle;
+}
+
+.surButton:hover {
+  background-color: white;
+  color: black;
+  width: 200px;
+  display: inline-block;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.3333333;
+  border-radius: 6px;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  background-image: none;
+  border: 1px solid black;
+  vertical-align: middle;
+  text-decoration: none;
+}

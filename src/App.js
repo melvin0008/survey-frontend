@@ -6,6 +6,7 @@ import * as Survey from "survey-react";
 import "survey-react/survey.css";
 import SurveyEditor from "./SurveyEditor";
 import SurveyForm from "./SurveyForm";
+import Home from "./Home";
 import Reward from "./Reward";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
@@ -46,7 +47,8 @@ class App extends Component {
       <BrowserRouter>
         <div className="App">
           <Switch>
-            <Route exact path='/' component={SurveyEditor}/>
+            <Route exact path='/' component={Home}/>
+            <Route path='/editor' component={SurveyEditor}/>
             <Route path='/payment' component={Payment}/>
             <Route path='/survey/:surveyid' component={SurveyForm}/>
             <Route path='/reward' component={Reward}/>

@@ -7,6 +7,8 @@ import {
   FormGroup,
   ControlLabel,
 } from 'react-bootstrap';
+import Background from './bg1.jpeg';
+import SurveyCreateModal from './SurveyCreateModal';
 
 
 class Payment extends Component {
@@ -19,6 +21,7 @@ class Payment extends Component {
       amount: 0,
       numberOfSurveyers: 0,
       assetType: 'GAS',
+      modalShow: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -60,6 +63,7 @@ class Payment extends Component {
       this.setState({
         txId: event.data.result.txid,
         depositSuccess: true,
+        modalShow: true
       })
     }
   }
@@ -70,6 +74,7 @@ class Payment extends Component {
   }
 
   render() {
+    let modalClose = () => this.setState({ modalShow: false });
     return (
       <div style={divStyle}>
         <div  className="col-md-4 col-md-offset-4" style= {{marginTop: '40px'}}>
@@ -129,6 +134,7 @@ class Payment extends Component {
             </div>
           </form>
         </div>
+        <SurveyCreateModal  show={this.state.modalShow} onHide={modalClose} {...this.state}/>
       </div>
     )
   }
@@ -139,7 +145,11 @@ const divStyle = {
   width: '100%',
   height: '100vh',
   width: '100vw',
-  backgroundColor: '#f0f0f0',
+  backgroundImage: `url(${Background})`,
+  backgroundRepeat: 'no-repeat',
+  backgroundPosition: 'center',
+  backgroundAttachment: 'fixed',
+  backgroundSize: '100%',
 };
 
 const inputStyle = {
