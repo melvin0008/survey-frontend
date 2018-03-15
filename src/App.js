@@ -8,6 +8,7 @@ import SurveyEditor from "./SurveyEditor";
 import SurveyForm from "./SurveyForm";
 import Home from "./Home";
 import Reward from "./Reward";
+import Balance from "./Balance";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 
@@ -52,6 +53,7 @@ class App extends Component {
             <Route path='/payment' component={Payment}/>
             <Route path='/survey/:surveyid' component={SurveyForm}/>
             <Route path='/reward' component={Reward}/>
+            <Route path='/balance' component={Balance}/>
           </Switch>
         </div>
       </BrowserRouter>

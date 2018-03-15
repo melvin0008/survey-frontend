@@ -13,7 +13,6 @@ class SurveyCreateModal extends Component {
       modalShow: false,
       copied: false
     };
-    console.log(props)
   }
 
   onCopy() {
@@ -34,7 +33,7 @@ class SurveyCreateModal extends Component {
     console.log(surveyUrl);
     return (
       <Modal
-        show={this.props.modalShow}
+        show={this.props.show}
         onHide={this.props.onHide}
         bsSize="large"
         aria-labelledby="contained-modal-title-lg"

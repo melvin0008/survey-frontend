@@ -7,6 +7,7 @@ import {
   ControlLabel,
 } from 'react-bootstrap';
 import Background from './bg1.jpeg';
+import { withRouter } from 'react-router-dom';
 
 class Reward extends Component {
   constructor(props) {
@@ -35,21 +36,17 @@ class Reward extends Component {
     request
     .post('http://127.0.0.1:8080/api/reward')
     .set('Accept', 'application/json')
-    .send(JSON.stringify({ "survey_id": this.surveyid, "reward_address": this.state.value}))
+    .send(JSON.stringify({ "survey_id": this.surveyid, "reward_address": reward_address}))
     .then(res => {
-      this.setState({ rewarded: true})
+      this.props.history.push({
+        pathname: '/balance',
+        state: { rewarded: true, address: reward_address }
+      })
     })
   }
 
   render() {
-    if(this.state.rewarded) {
-      return (
-        <div>
-          
-        </div>
-      )
-    }
-    else if (this.completed) {
+    if (this.completed) {
       return (
         <div style={divStyle}>
           <div  className="col-md-4 col-md-offset-4" style= {{marginTop: '40px'}}>
@@ -113,4 +110,4 @@ const inputStyle = {
   boxShadow: 'none',
 }
 
-export default Reward;
+export default withRouter(Reward);

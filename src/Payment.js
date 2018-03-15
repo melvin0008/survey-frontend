@@ -83,7 +83,7 @@ class Payment extends Component {
               controlId='sendForm'
               style={ { 'minHeight': '100px' } }
             >
-              <ControlLabel>Number of surveyers you want to distribute GAS to:</ControlLabel>
+              <ControlLabel>Amount of NEO/GAS to distribute to surveyers:</ControlLabel>
               <FormControl
                 type='text'
                 value={ this.state.amount }
@@ -96,7 +96,7 @@ class Payment extends Component {
                 onFocus={ this.handleInputFocus }
               />
               <hr style={{border: 'none'}}/>
-              <ControlLabel>Amount of GAS to distribute to surveyers:</ControlLabel>
+              <ControlLabel>Number of surveyers you want to distribute NEO/GAS to:</ControlLabel>
               <FormControl
                   type='text'
                   value={ this.state.numberOfSurveyers }
