@@ -30,7 +30,7 @@ class Payment extends Component {
     window.postMessage({
       type: 'NEOLINK_SEND_INVOKE',
       text: {
-        scriptHash: '18f39545aaf1f42a7ecbe6e4d0dc7995c1f83dc6',
+        scriptHash: '51c36af308d9336bf2a0b2c2fd9ab7d8d56dbf3e',
         operation: 'create_survey',
         arg1: u.str2hexstring(this.state.surveyId),
         arg2: u.num2hexstring(parseInt(this.state.numberOfSurveyers, 10)),
